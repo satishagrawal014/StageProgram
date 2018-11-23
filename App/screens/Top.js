@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { Text, View, FlatList, Image, TouchableOpacity, ToastAndroid } from 'react-native';
+import { Text, View, FlatList, Image, TouchableOpacity, ToastAndroid} from 'react-native';
 
 import { createStackNavigator } from 'react-navigation';
 
@@ -15,18 +15,20 @@ export default class Top extends React.Component {
   }
 
   renderItem = ({ item }) => {
+    
+    console.log(item)
     return (
-    <TouchableOpacity onPress={() => ToastAndroid.show(item.book_title, ToastAndroid.SHORT)}>
+        <TouchableOpacity onPress={() => ToastAndroid.show(item.VideoTitle, ToastAndroid.SHORT)}>
         <Image style={{ width: 350, height: 180, marginTop: 5, marginLeft: 5, borderRadius: 10 }}
-          source={{ uri: item.image }} />
+          source={{ uri: item.MainThumbnailUrl }} />
         <View>
           <Text style={{ fontSize: 18, marginLeft: 15, marginTop: 5 }}>
-            {item.book_title}
+            {item.VideoTitle}
           </Text>
-          <Text style={{ fontSize: 15, marginLeft: 15, marginTop: 2 }}>
-            {item.author}
+          <Text style={{ fontSize: 15, marginLeft: 15, marginTop: 2, color: 'gray' }}>
+            {item.VideoDescription}
           </Text>
-          <Text style={{ fontSize: 15, marginLeft: 15, }}>Views : 6.4 M,4 month ago </Text> 
+          <Text style={{ fontSize: 15, marginLeft: 15, flexDirection:'row'}}>{item.TotalViews} views {item.HowLong}</Text> 
         </View>
       </TouchableOpacity>
     )
@@ -42,30 +44,39 @@ export default class Top extends React.Component {
   )
 
   componentDidMount() {
-    var params = {
-      PageNumber: 1,
-      PageSize: 10,
-      StateId: 5
-  };
-  var formData = new FormData();
-
-for (var k in params) {
-    formData.append(k, params[k]);
-}
-
-  var request = {
-    method: 'POST',
-    headers: headers,
-    body: formData
-};
-
+ /* fetch('http://stageprogram.in/GetVideo', {
+  method: 'POST',
+  headers: {
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    PageNumber: 1,
+    PageSize: 10,
+  }),
+}).then((response) => response.json())
+    .then((responseJson) => {
+      console.log(responseJson)
+      return responseJson;
+    })
+    .catch((error) => {
+      console.error(error);
+    });*/
     const url = 'http://stageprogram.in/GetVideo'
-    fetch(url,request)
+    fetch(url,{
+      method: 'POST',
+      headers: {
+        Accept: 'application/json', 'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        PageNumber: 1,
+        PageSize: 10,
+      }),
+    })
       .then((response) => response.json())
       .then((responseJson) => {
-        console.log(responseJson);
         this.setState({
-          dataSource: responseJson.book_array
+          dataSource: responseJson
         })
       })
       .catch((error) => {
@@ -73,12 +84,13 @@ for (var k in params) {
       })
   }
   render() {
+
     return (
       <View>
         <FlatList
           data={this.state.dataSource}
           renderItem={this.renderItem}
-          keyExtractor={item => item.book_title}
+          keyExtractor={item => item.VideoTitle}
           ItemSeparatorComponent={this.renderSeparator}
         />
       </View>

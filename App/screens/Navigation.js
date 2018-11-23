@@ -10,7 +10,7 @@ import Rajasthani from './Rajasthan';
 const RootStack = createMaterialTopTabNavigator({
     TOP: Top,
     BIHAR: Bihar,
-    PUNJAB : PunHari,
+    PUNJAB  : PunHari,
     HARYANA : Top,
     RAJASTHAN: Rajasthani,
     OTHER: Bihar
