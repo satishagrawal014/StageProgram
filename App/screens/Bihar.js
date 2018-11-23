@@ -16,7 +16,7 @@ export default class Bihar extends React.Component {
 
   renderItem = ({ item }) => {
     
-    console.log(item)
+   /*  console.log(item) */
     return (
         <TouchableOpacity onPress={() => ToastAndroid.show(item.VideoTitle, ToastAndroid.SHORT)}>
         <Image style={{ width: 350, height: 180, marginTop: 5, marginLeft: 5, borderRadius: 10 }}

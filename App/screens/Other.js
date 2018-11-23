@@ -6,7 +6,7 @@ import { createStackNavigator } from 'react-navigation';
 
 /* import DetailsScreen from './Details'; */ 
 
-export default class Rajasthan extends React.Component {
+export default class Other extends React.Component {
   constructor() {
     super()
     this.state = {
@@ -71,7 +71,7 @@ export default class Rajasthan extends React.Component {
       body: JSON.stringify({
         PageNumber: 1,
         PageSize: 10,
-        StateId: 30,
+        StateId: 29,
       }),
     })
       .then((response) => response.json())

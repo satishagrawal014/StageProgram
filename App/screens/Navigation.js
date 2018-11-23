@@ -6,14 +6,14 @@ import Top from './Top';
 import Bihar from './Bihar';
 import PunHari from './PunHar';
 import Rajasthani from './Rajasthan';
+import Other from './Other';
 
 const RootStack = createMaterialTopTabNavigator({
     TOP: Top,
     BIHAR: Bihar,
-    PUNJAB  : PunHari,
-    HARYANA : Top,
+    PUNJABHARYANA  : PunHari,
     RAJASTHAN: Rajasthani,
-    OTHER: Bihar
+    OTHER: Other
 }, {
         tabBarOptions: {
             scrollEnabled:true,
