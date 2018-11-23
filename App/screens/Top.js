@@ -42,10 +42,28 @@ export default class Top extends React.Component {
   )
 
   componentDidMount() {
-    const url = 'https://www.json-generator.com/api/json/get/ccLAsEcOSq?indexnt=1'
-    fetch(url)
+    var params = {
+      PageNumber: 1,
+      PageSize: 10,
+      StateId: 5
+  };
+  var formData = new FormData();
+
+for (var k in params) {
+    formData.append(k, params[k]);
+}
+
+  var request = {
+    method: 'POST',
+    headers: headers,
+    body: formData
+};
+
+    const url = 'http://stageprogram.in/GetVideo'
+    fetch(url,request)
       .then((response) => response.json())
       .then((responseJson) => {
+        console.log(responseJson);
         this.setState({
           dataSource: responseJson.book_array
         })
